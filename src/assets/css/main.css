@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: 'noto_sans_thai';
+  src: url('/fonts/NotoSansThai-Regular.eot');
+  src: url('/fonts/NotoSansThai-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+button:focus {
+  outline: 1px dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+}
