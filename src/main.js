@@ -3,6 +3,8 @@ import App from './App.vue'
 import router from './router'
 import './assets/css/main.css'
 import firebase from 'firebase'
+import * as firebaseui from 'firebaseui'
+import 'firebaseui/dist/firebaseui.css'
 const firebaseConfig = {
   apiKey: "AIzaSyALcy-dJ-mQNyvy9cy-SQba0sbKxErvIsw",
   authDomain: "thyeargear42.firebaseapp.com",
