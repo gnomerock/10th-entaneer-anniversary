@@ -10,15 +10,31 @@ import {
   db
 } from '@/firebase'
 export default {
-  created() {
-    fb.auth().onAuthStateChanged((user) => {
+  async created() {
+    fb.auth().onAuthStateChanged(async (user) => {
       if (user) {
         // User is signed in.
         const userData = {
           uid: user.uid,
           phoneNumber: user.phoneNumber,
+          displayName: user.displayName,
         }
-        console.log({userData})
+        const uid = userData.uid
+
+        let userInfo = await db.collection('user').doc(uid).get(uid)
+        if(userInfo.exists) {
+          //
+        }else{
+          await db.collection('user').doc(uid).set({
+            phoneNumber: userData.phoneNumber
+          })
+        }
+
+        this.$store.commit('setUser', {
+          phoneNumber: userData.phoneNumber,
+          uid: uid,
+          displayName: displayName
+        })
       }else{
         this.$router.push('login')
       }

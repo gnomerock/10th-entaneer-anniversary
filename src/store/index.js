@@ -5,10 +5,18 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    phone_number: null,
+    uid: null,
+    phoneNumber: null,
     displayName: null,
-    student_id: null
+    studentID: null
   },
-  mutations: {},
+  mutations: {
+    setUser(state, user) {
+      state.uid = user.uid
+      state.phoneNumber = user.phoneNumber
+      state.displayName = user.displayName
+      state.studentID = user.studentID
+    }
+  },
   getters: {}
 })
