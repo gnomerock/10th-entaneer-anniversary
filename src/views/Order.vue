@@ -1,8 +1,24 @@
 <template>
-  <div>
-    <div class="mt-2 flex items-center justify-center">
-      <img alt="Entaneer Gear 42 logo" src="/logo.png" class="rounded object-contain h-48 shadow-lg">
-      <router-link class="mt-2 rounded p-2 bg-blue-500 hover:bg-blue-400 text-white" tag="button" to="/comfirm">ยืนยันคำสั่งซื้อ</router-link>
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="form-group mt-2">
+          <label>ชื่อ/ชื่อเล่น ภาษาไทย</label>
+          <input type="text" class="form-control" v-model="displayName">
+        </div>
+        <div class="form-group mt-2">
+          <label>รหัสนักศึกษา</label>
+          <input type="text" class="form-control" v-model="studentId" palceholder="54061XXXX">
+        </div>
+        <div class="form-group mt-2">
+          <label>ที่อยู่ในการจัดส่ง</label>
+          <textarea cols="30" rows="5" class="form-control" v-model="address"></textarea>
+        </div>
+        <div class="form-group mt-2">
+          <label>เบอร์โทรศัพท์</label>
+          <input type="text" class="form-control" v-model="phoneNumber">
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -11,10 +27,17 @@
 export default {
   data() {
     return {
-      first_name: null,
-      last_name: null,
-      phone_number: null
+      displayName: null,
+      phoneNumber: null,
+      studentId: null,
+      address: null
     }
+  },
+  created() {
+    this.phoneNumber = this.$store.state.phoneNumber
+  },
+  methods: {
+
   }
 }
 </script>

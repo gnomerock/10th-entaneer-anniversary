@@ -33,7 +33,7 @@ export default {
         this.$store.commit('setUser', {
           phoneNumber: userData.phoneNumber,
           uid: uid,
-          displayName: displayName
+          displayName: userData.displayName
         })
       }else{
         this.$router.push('login')
