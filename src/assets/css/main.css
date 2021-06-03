@@ -1,15 +1,5 @@
-@font-face {
-  font-family: 'noto_serif_thai';
-  src: url('/fonts/NotoSerifThai-Regular.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-
-button:focus {
-  outline: 1px dotted;
-  outline: 5px auto -webkit-focus-ring-color;
-}
+@import url('https://fonts.googleapis.com/css2?family=Kanit&display=swap');
 
 html body {
-  font-family: 'noto_serif_thai', sans-serif;
+  font-family: 'Kanit', sans-serif;
 }
