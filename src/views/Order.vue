@@ -1,6 +1,7 @@
 <template>
   <div class="container mt-2 mb-2">
-    <h3 class="text-primary mt-2">เลือกซื้อสิ่งของที่ระลึก</h3>
+    <h3 class="text-primary text-center mt-2">เลือกซื้อสิ่งของที่ระลึก</h3>
+    <p class="text-center">*** ค่าส่งเริ่มต้น 60 บาท สั่งจำนวน 4 รายการขึ้นไปบวกค่าส่ง 15 บาทต่อรายการ ***</p>
     <product :product="packaged" v-model="packaged"></product>
     <product :product="shop" v-model="shop"></product>
     <product :product="polo" v-model="polo"></product>
@@ -20,7 +21,11 @@ export default {
       packaged: {
         title: 'Package เสื้อโปโล+แก้ว ราคา 839 บาท',
         images: [
-          '/images/comboset.jpg'
+          '/images/comboset.jpg',
+          '/images/polo.jpg',
+          '/images/polo_size.jpg',
+          '/images/yeti_1.jpg',
+          '/images/yeti_2.jpg',
         ],
         price: 839,
         max: 1,
