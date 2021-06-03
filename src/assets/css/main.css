@@ -7,3 +7,12 @@ html body {
 .text-right {
   text-align: right;
 }
+
+body {
+  background: rgb(98,255,243);
+  background: linear-gradient(9deg, rgba(98,255,243,1) 0%, rgba(47,139,181,1) 100%);
+}
+
+.container {
+  min-height: 100%;
+}

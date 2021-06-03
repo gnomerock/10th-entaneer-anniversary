@@ -93,7 +93,7 @@
       </div>
     </div>
     <button class="mt-2 btn btn-success btn-block w-100">ยืนยันคำสั่งซื้อ</button>
-    <button class="mt-2 btn btn-info btn-block w-100" @click.prevent="$router.push('/order')">กลับ</button>
+    <button class="mt-2 btn btn-danger btn-block w-100" @click.prevent="$router.push('/order')">กลับ</button>
   </div>
 </template>
 

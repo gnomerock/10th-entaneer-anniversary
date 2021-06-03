@@ -10,3 +10,10 @@
     </div>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.container {
+  height: 100vh;
+  margin-top: 50px;
+}
+</style>

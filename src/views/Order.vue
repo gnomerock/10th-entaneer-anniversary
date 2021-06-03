@@ -7,6 +7,7 @@
     <product :product="polo" v-model="polo"></product>
     <product :product="yeti" v-model="yeti"></product>
     <button :disabled="packaged.quantity===0 && shop.quantity===0 && polo.quantity===0 && yeti.quantity===0" class="btn btn-success btn-block mt-2 w-100" @click.prevent="submitOrder">ยืนยันคำสั่งซื้อ</button>
+    <button class="mt-2 btn btn-danger btn-block w-100" @click.prevent="$router.push('/')">กลับ</button>
   </div>
 </template>
 
