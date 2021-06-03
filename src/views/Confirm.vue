@@ -51,6 +51,30 @@
           <input type="text" class="form-control" v-model="phoneNumber">
         </div>
 
+        <hr>
+        <h3 class="text-primary">
+          ชำระเงิน
+        </h3>
+        <div>1. ชำระเงินมาที่เลขบัญชี</div>
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-3">
+                <img src="/images/scb-logo.jpg" class="img-fluid">
+              </div>
+              <div class="col-9">
+                <h5 class="text-dark">บัญชีออมทรัพย์</h5>
+                <h5 class="text-primary">206-268185-2</h5>
+                <h5 class="text-dark">ธนาคารไทยพาณิชย์</h5>
+                <h5 class="text-dark">ชื่อบัญชี นายอภิชัย ก๋าสมุทร และ นางสาวพรรณิภา แสนนันตา</h5>
+                <h5>
+                  <span class="text-dark">จำนวนเงิน</span> <span class="text-success">{{(totalPrice+deriveryCost).toLocaleString('th')}}</span> <span>บาท</span>
+                </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>2. อัพโหลดสลิปแสดงหลักฐานการโอนเงิน</div>
         <button class="mt-2 btn btn-success btn-block w-100">ยืนยันคำสั่งซื้อ</button>
         <button class="mt-2 btn btn-info btn-block w-100" @click.prevent="$router.push('/order')">กลับ</button>
       </div>
