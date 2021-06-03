@@ -3,3 +3,7 @@
 html body {
   font-family: 'Kanit', sans-serif;
 }
+
+.text-right {
+  text-align: right;
+}

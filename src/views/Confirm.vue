@@ -4,9 +4,9 @@
     <hr>
     <div class="row">
       <div class="col-3"><b class="text-primary">รายการ</b></div>
-      <div class="col-3"><b class="text-primary text-right">จำนวน</b></div>
-      <div class="col-3"><b class="text-primary text-right">ราคา (บาท)</b></div>
-      <div class="col-3"><b class="text-primary text-right">ราคารวม (บาท)</b></div>
+      <div class="col-3 text-right"><b class="text-primary">จำนวน</b></div>
+      <div class="col-3 text-right"><b class="text-primary">ราคา (บาท)</b></div>
+      <div class="col-3 text-right"><b class="text-primary">ราคารวม (บาท)</b></div>
     </div>
     <product-summary :product="this.$store.state.order.package" v-if="this.$store.state.order.package.quantity>0" class="row mb-2"></product-summary>
     <product-summary :product="this.$store.state.order.shop" v-if="this.$store.state.order.shop.quantity>0" class="row mb-2"></product-summary>

@@ -7,13 +7,13 @@
       </p>
     </div>
     <div class="col-3">
-      <p class="text-dark">{{product.quantity}}</p>
+      <p class="text-dark text-right">{{product.quantity}}</p>
     </div>
     <div class="col-3">
-      <p class="text-dark">{{product.price}}</p>
+      <p class="text-dark text-right">{{product.price}}</p>
     </div>
     <div class="col-3">
-      <p class="text-dark">{{(product.quantity * product.price).toLocaleString('th')}}</p>
+      <p class="text-dark text-right">{{(product.quantity * product.price).toLocaleString('th')}}</p>
     </div>
   </div>
 </template>
