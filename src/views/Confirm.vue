@@ -21,7 +21,7 @@
     <div class="row">
       <div class="col-3"></div>
       <div class="col-3"></div>
-      <div class="col-3"><b class="text-primary text-right">ค่าส่ง</b></div>
+      <div class="col-3"><b class="text-primary text-right">ค่าส่ง {{items}} ชิ้น</b></div>
       <div class="col-3"><h5 class="text-dark text-right">{{deriveryCost.toLocaleString('th')}} บาท</h5></div>
     </div>
     <div class="row">
@@ -93,6 +93,16 @@ export default {
 
       if(volume<4) return 60
       else return 60+(15 * (volume-3))
+    },
+    items() {
+      let order = this.$store.state.order
+      let volume = 0
+      if(order.package.quantity>0) volume += 2
+      if(order.shop.quantity>0) volume += order.shop.quantity
+      if(order.yeti.quantity>0) volume += order.yeti.quantity
+      if(order.polo.quantity>0) volume += order.polo.quantity
+
+      return volume
     }
   }
 }
