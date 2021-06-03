@@ -38,7 +38,7 @@ export default {
 
         let order = await db.collection('Order').doc(uid).get()
         if(order.exists) {
-          if(this.$route.path!=='/summary') this.$router.push('summary')
+          if(this.$route.path!=='/summary' && this.$route.path!=='/orders-summary') this.$router.push('summary')
         }
       }else{
         this.$router.push('login')
