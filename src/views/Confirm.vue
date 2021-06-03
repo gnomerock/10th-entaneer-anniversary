@@ -12,6 +12,24 @@
     <product-summary :product="this.$store.state.order.shop" v-if="this.$store.state.order.shop.quantity>0" class="row mb-2"></product-summary>
     <product-summary :product="this.$store.state.order.polo" v-if="this.$store.state.order.polo.quantity>0" class="row mb-2"></product-summary>
     <product-summary :product="this.$store.state.order.yeti" v-if="this.$store.state.order.yeti.quantity>0" class="row mb-2"></product-summary>
+    <div class="row">
+      <div class="col-3"></div>
+      <div class="col-3"></div>
+      <div class="col-3"><b class="text-primary text-right">ราคารวม</b></div>
+      <div class="col-3"><h5 class="text-dark text-right">{{totalPrice.toLocaleString('th')}} บาท</h5></div>
+    </div>
+    <div class="row">
+      <div class="col-3"></div>
+      <div class="col-3"></div>
+      <div class="col-3"><b class="text-primary text-right">ค่าส่ง</b></div>
+      <div class="col-3"><h5 class="text-dark text-right">{{deriveryCost.toLocaleString('th')}} บาท</h5></div>
+    </div>
+    <div class="row">
+      <div class="col-3"></div>
+      <div class="col-3"></div>
+      <div class="col-3"><b class="text-primary text-right">ราคารวมค่าส่ง</b></div>
+      <div class="col-3"><h5 class="text-dark text-right">{{(totalPrice+deriveryCost).toLocaleString('th')}} บาท</h5></div>
+    </div>
     <hr>
     <div class="row">
       <h5 class="text-primary">ข้อมูลในการจัดส่ง</h5>
@@ -57,8 +75,25 @@ export default {
   created() {
     this.phoneNumber = this.$store.state.phoneNumber
   },
-  methods: {
+  computed: {
+    totalPrice() {
+      let order = this.$store.state.order
+      return ( order.package.quantity * order.package.price ) +
+              ( order.shop.quantity * order.shop.price ) + 
+              ( order.polo.quantity * order.polo.price ) + 
+              ( order.yeti.quantity * order.yeti.price )
+    },
+    deriveryCost() {
+      let order = this.$store.state.order
+      let volume = 0
+      if(order.package.quantity>0) volume += 2
+      if(order.shop.quantity>0) volume += order.shop.quantity
+      if(order.yeti.quantity>0) volume += order.yeti.quantity
+      if(order.polo.quantity>0) volume += order.polo.quantity
 
+      if(volume<4) return 60
+      else return 60+(15 * (volume-3))
+    }
   }
 }
 </script>

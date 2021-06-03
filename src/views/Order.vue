@@ -20,6 +20,7 @@ export default {
     return {
       packaged: {
         title: 'Package เสื้อโปโล+แก้ว ราคา 839 บาท',
+        note: 'นับค่าส่งเป็น 2 รายการ',
         images: [
           '/images/comboset.jpg',
           '/images/polo.jpg',

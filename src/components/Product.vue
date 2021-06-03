@@ -18,12 +18,14 @@
           <h5 class="text-primary">
             {{product.title}}
           </h5>
+          <p class="text-dark" v-if="product.note">
+            ** {{product.note}}
+          </p>
           <p class="description text-gray">
             *** สั่งได้ไม่เกิน {{product.max}} รายการ
           </p>
           <div v-if="product.type!=='yeti'" class="mt-2 mb-2">
-            <h5 class="text-primary">เลือก Size</h5>
-            <b-form-group label="Individual radios">
+            <b-form-group label="เลือก Size">
               <b-form-radio v-model="value.size" value="S">S</b-form-radio>
               <b-form-radio v-model="value.size" value="M">M</b-form-radio>
               <b-form-radio v-model="value.size" value="L">L</b-form-radio>
@@ -35,7 +37,7 @@
           <div class="text-dark">
             ต้องการสั่งจำนวน
           </div>
-          <b-input-group class="mt-2 w-10" >
+          <b-input-group title="Size" class="mt-2 w-10" >
             <b-input-group-prepend>
               <b-button @click.prevent="minus">-</b-button>
             </b-input-group-prepend>
