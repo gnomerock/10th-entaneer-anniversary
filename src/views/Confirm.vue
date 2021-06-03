@@ -92,7 +92,7 @@
         <div>2. อัพโหลดสลิปแสดงหลักฐานการโอนเงิน</div>
       </div>
     </div>
-    <button class="mt-2 btn btn-success btn-block w-100">ยืนยันคำสั่งซื้อ</button>
+    <button class="mt-2 btn btn-success btn-block w-100" :disabled="!displayName || !phoneNumber || !studentId || !address">ยืนยันคำสั่งซื้อ</button>
     <button class="mt-2 btn btn-danger btn-block w-100" @click.prevent="$router.push('/order')">กลับ</button>
   </div>
 </template>
@@ -109,6 +109,11 @@ export default {
       phoneNumber: null,
       studentId: null,
       address: null
+    }
+  },
+  methods: {
+    submitOrder() {
+
     }
   },
   created() {
