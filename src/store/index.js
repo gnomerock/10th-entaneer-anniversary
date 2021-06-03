@@ -8,7 +8,8 @@ export default new Vuex.Store({
     uid: null,
     phoneNumber: null,
     displayName: null,
-    studentID: null
+    studentID: null,
+    order: null
   },
   mutations: {
     setUser(state, user) {
@@ -16,6 +17,10 @@ export default new Vuex.Store({
       state.phoneNumber = user.phoneNumber
       state.displayName = user.displayName
       state.studentID = user.studentID
+    },
+    setOrder(state, order) {
+      console.log({order})
+      state.order = order
     }
   },
   getters: {}

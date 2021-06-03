@@ -19,11 +19,31 @@
             {{product.title}}
           </h5>
           <p class="description text-gray">
-            สั่งได้ไม่เกิน {{product.max}} ชิ้น
+            *** สั่งได้ไม่เกิน {{product.max}} รายการ
           </p>
+          <div v-if="product.type!=='yeti'" class="mt-2 mb-2">
+            <h5 class="text-primary">เลือก Size</h5>
+            <b-form-group label="Individual radios">
+              <b-form-radio v-model="value.size" value="S">S</b-form-radio>
+              <b-form-radio v-model="value.size" value="M">M</b-form-radio>
+              <b-form-radio v-model="value.size" value="L">L</b-form-radio>
+              <b-form-radio v-model="value.size" value="XL">XL</b-form-radio>
+              <b-form-radio v-model="value.size" value="XXL">XXL</b-form-radio>
+              <b-form-radio v-model="value.size" value="อื่นๆ">อื่นๆ โปรดระบุ <input type="text" class="formcontrol" v-model="value.other"></b-form-radio>
+            </b-form-group>
+          </div>
           <div class="text-dark">
             ต้องการสั่งจำนวน
           </div>
+          <b-input-group class="mt-2 w-10" >
+            <b-input-group-prepend>
+              <b-button @click.prevent="minus">-</b-button>
+            </b-input-group-prepend>
+            <b-form-input readonly v-model="value.quantity" min="0" :max="product.max" class="bg-white"></b-form-input>
+            <b-input-group-append>
+              <b-button @click.prevent="add">+</b-button>
+            </b-input-group-append>
+          </b-input-group>
         </div>
       </div>
     </div>
@@ -35,7 +55,7 @@ import CoolLightBox from 'vue-cool-lightbox'
 import 'vue-cool-lightbox/dist/vue-cool-lightbox.min.css'
 import { Carousel, Slide } from 'vue-carousel';
 export default {
-  props: ['product'],
+  props: ['product', 'value'],
    components: {
     CoolLightBox,
     Carousel,
@@ -44,6 +64,14 @@ export default {
   data() {
     return {
       lbIndex: null
+    }
+  },
+  methods: {
+    add() {
+      if(this.value.quantity<this.value.max) this.value.quantity++
+    },
+    minus() {
+      if(this.value.quantity>0) this.value.quantity--
     }
   }
 }

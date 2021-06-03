@@ -1,11 +1,11 @@
 <template>
   <div class="container mt-2 mb-2">
     <h3 class="text-primary mt-2">เลือกซื้อสิ่งของที่ระลึก</h3>
-    <product :product="packaged"></product>
-    <product :product="shop"></product>
-    <product :product="polo"></product>
-    <product :product="yeti"></product>
-    <router-link tag="button" class="btn btn-success btn-block mt-2" to="/confirm">ยืนยันคำสั่งซื้อ</router-link>
+    <product :product="packaged" v-model="packaged"></product>
+    <product :product="shop" v-model="shop"></product>
+    <product :product="polo" v-model="polo"></product>
+    <product :product="yeti" v-model="yeti"></product>
+    <button :disabled="packaged.quantity===0 && shop.quantity===0 && polo.quantity===0 && yeti.quantity===0" class="btn btn-success btn-block mt-2 w-100" @click.prevent="submitOrder">ยืนยันคำสั่งซื้อ</button>
   </div>
 </template>
 
@@ -62,8 +62,32 @@ export default {
         price: 390,
         max: 5,
         quantity: 0,
-        size: null
+        size: null,
+        type: 'yeti'
       },
+    }
+  },
+  methods: {
+    async submitOrder() {
+      if(this.packaged.quantity>0 && !this.packaged.size) {
+        await this.$alert('กรุณาระบุ size เสื้อ Polo ของ package')
+        return
+      }
+      if(this.shop.quantity>0 && !this.shop.size) {
+        await this.$alert('กรุณาระบุ size เสื้อ SHOP ครบรอบ 10 ปี')
+        return
+      }
+      if(this.polo.quantity>0 && !this.polo.size) {
+        await this.$alert('กรุณาระบุ size เสื้อโปโล')
+        return
+      }
+      this.$store.commit('setOrder', {
+        package: this.packaged,
+        shop: this.shop,
+        polo: this.polo,
+        yeti: this.yeti
+      })
+      this.$router.push('confirm')
     }
   }
 }
