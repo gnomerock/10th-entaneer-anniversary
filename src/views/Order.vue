@@ -67,6 +67,15 @@ export default {
       },
     }
   },
+  created() {
+    if(this.$store.state.order) {
+      let order = this.$store.state.order
+      this.packaged = order.package
+      this.shop = order.shop
+      this.polo = order.polo
+      this.yeti = order.yeti
+    }
+  },
   methods: {
     async submitOrder() {
       if(this.packaged.quantity>0 && !this.packaged.size) {
