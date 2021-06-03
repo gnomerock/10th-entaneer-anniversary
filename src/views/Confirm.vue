@@ -118,7 +118,7 @@ export default {
     async submitOrder() {
       
       try {
-        await this.$confirm('ยืนยันรายการสั่งซื้อและได้โอนเงินพพร้อมแนบสลิปเรียบร้อย')
+        await this.$confirm('ยืนยันรายการสั่งซื้อและได้โอนเงินพร้อมแนบสลิปเรียบร้อย')
   
         const orderData = {
           order: this.$store.state.order,
@@ -132,6 +132,8 @@ export default {
         console.log('confirm', orderData)
         await db.collection('Order').doc(this.$store.state.uid).set(orderData)
         await this.$alert('รออัพเดตจาก ป.ชัย นะจ้า','สั่งซื้อสำเร็จ!','success')
+
+        this.$router.push('/summary')
       } catch (error) {
         console.log({error})
         console.log('cancel')

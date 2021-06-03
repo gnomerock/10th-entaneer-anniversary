@@ -35,6 +35,11 @@ export default {
           uid: uid,
           displayName: userData.displayName
         })
+
+        let order = await db.collection('Order').doc(uid).get()
+        if(order.exists) {
+          if(this.$route.path!=='/summary') this.$router.push('summary')
+        }
       }else{
         this.$router.push('login')
       }

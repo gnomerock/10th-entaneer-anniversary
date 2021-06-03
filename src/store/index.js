@@ -23,5 +23,9 @@ export default new Vuex.Store({
       state.order = order
     }
   },
-  getters: {}
+  getters: {
+    uid(state) {
+      return state.uid
+    }
+  }
 })
