@@ -15,22 +15,16 @@
         <product-summary :product="this.$store.state.order.polo" v-if="this.$store.state.order.polo.quantity>0" class="row mb-2"></product-summary>
         <product-summary :product="this.$store.state.order.yeti" v-if="this.$store.state.order.yeti.quantity>0" class="row mb-2"></product-summary>
         <div class="row">
-          <div class="col-3"></div>
-          <div class="col-3"></div>
-          <div class="col-3"><b class="text-primary text-right">ราคารวม</b></div>
-          <div class="col-3"><h5 class="text-dark text-right">{{totalPrice.toLocaleString('th')}} บาท</h5></div>
+          <div class="col-6"><b class="text-primary text-right">ราคารวม</b></div>
+          <div class="col-6"><h5 class="text-dark text-right">{{totalPrice.toLocaleString('th')}} บาท</h5></div>
         </div>
         <div class="row">
-          <div class="col-3"></div>
-          <div class="col-3"></div>
-          <div class="col-3"><b class="text-primary text-right">ค่าส่ง {{items}} ชิ้น</b></div>
-          <div class="col-3"><h5 class="text-dark text-right">{{deriveryCost.toLocaleString('th')}} บาท</h5></div>
+          <div class="col-6"><b class="text-primary text-right">ค่าส่ง {{items}} ชิ้น</b></div>
+          <div class="col-6"><h5 class="text-dark text-right">{{deriveryCost.toLocaleString('th')}} บาท</h5></div>
         </div>
         <div class="row">
-          <div class="col-3"></div>
-          <div class="col-3"></div>
-          <div class="col-3"><b class="text-primary text-right">ราคารวมค่าส่ง</b></div>
-          <div class="col-3"><h5 class="text-dark text-right">{{(totalPrice+deriveryCost).toLocaleString('th')}} บาท</h5></div>
+          <div class="col-6"><b class="text-primary text-right">ราคารวมค่าส่ง</b></div>
+          <div class="col-6"><h5 class="text-dark text-right">{{(totalPrice+deriveryCost).toLocaleString('th')}} บาท</h5></div>
         </div>
         <hr>
 
@@ -90,30 +84,67 @@
           </div>
         </div>
         <div>2. อัพโหลดสลิปแสดงหลักฐานการโอนเงิน</div>
+        <button class="mt-2 btn btn-success" @click="$refs.fileInput.click()">อัพโหลดสลิปหลักฐานโอนเงิน</button>
+        <input type="file" hidden ref="fileInput" @change="handleFile">
+        <br>
+        <img class="img-fluid slip" v-if="slip" :src="slip" width="200">
       </div>
     </div>
-    <button class="mt-2 btn btn-success btn-block w-100" :disabled="!displayName || !phoneNumber || !studentId || !address">ยืนยันคำสั่งซื้อ</button>
+    <button class="mt-2 btn btn-success btn-block w-100" :disabled="!displayName || !phoneNumber || !studentId || !address || !slip" @click="submitOrder">ยืนยันคำสั่งซื้อ</button>
     <button class="mt-2 btn btn-danger btn-block w-100" @click.prevent="$router.push('/order')">กลับ</button>
   </div>
 </template>
 
 <script>
 import ProductSummary from '../components/ProductSummary'
+import {
+  db,
+  storage
+} from '../firebase'
 export default {
   components: {
-    ProductSummary
+    ProductSummary,
   },
   data() {
     return {
       displayName: null,
       phoneNumber: null,
       studentId: null,
-      address: null
+      address: null,
+      slip: null
     }
   },
   methods: {
-    submitOrder() {
+    async submitOrder() {
+      
+      try {
+        await this.$confirm('ยืนยันรายการสั่งซื้อและได้โอนเงินพพร้อมแนบสลิปเรียบร้อย')
+  
+        const orderData = {
+          order: this.$store.state.order,
+          totalPrice: this.totalPrice,
+          slip: this.slip,
+          name: this.displayName,
+          phoneNumber: this.phoneNumber,
+          address: this.address,
+          studentId: this.studentId
+        }
+        console.log('confirm', orderData)
+        await db.collection('Order').doc(this.$store.state.uid).set(orderData)
+        await this.$alert('รออัพเดตจาก ป.ชัย นะจ้า','สั่งซื้อสำเร็จ!','success')
+      } catch (error) {
+        console.log({error})
+        console.log('cancel')
+      }
 
+    },
+    async handleFile(e) {
+      let filepath = `/slip/${this.$store.state.uid}/${e.target.files[0].name}`
+      console.log('uploading ', filepath)
+      await storage.ref().child(filepath).put(e.target.files[0])
+      let url = await storage.ref().child(filepath).getDownloadURL()
+      this.slip = url
+      console.log('upload success', url)
     }
   },
   created() {
@@ -151,3 +182,10 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.slip {
+  min-width: 300px;
+  min-height: 300px;
+}
+</style>

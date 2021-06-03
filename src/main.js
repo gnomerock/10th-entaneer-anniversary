@@ -11,7 +11,6 @@ import './assets/css/main.css'
 import VueSimpleAlert from "vue-simple-alert";
  
 Vue.use(VueSimpleAlert);
-
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 
