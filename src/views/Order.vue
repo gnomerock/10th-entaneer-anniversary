@@ -26,8 +26,9 @@ export default {
           '/images/comboset.jpg',
           '/images/polo.jpg',
           '/images/polo_size.jpg',
-          '/images/yeti_1.jpg',
-          '/images/yeti_2.jpg',
+          '/images/yeti_3.jpg',
+          '/images/yeti_5.jpg',
+          '/images/yeti_6.jpg',
         ],
         price: 839,
         max: 1,
@@ -59,10 +60,7 @@ export default {
       yeti: {
         title: 'แก้วเก็บความร้อน-เย็น ราคา 390 บาท',
         images: [
-          '/images/yeti_1.jpg',
-          '/images/yeti_2.jpg',
           '/images/yeti_3.jpg',
-          '/images/yeti_4.jpg',
           '/images/yeti_5.png',
           '/images/yeti_6.png',
         ],
