@@ -14,6 +14,10 @@ Vue.use(VueSimpleAlert);
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 
+import VueLoading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
+Vue.use(VueLoading)
+
 Vue.config.productionTip = false
 
 new Vue({

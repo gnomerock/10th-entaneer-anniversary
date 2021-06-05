@@ -11,7 +11,12 @@ import {
 } from '@/firebase'
 export default {
   async created() {
+    // let loader = this.$loading.show({})
+    // setTimeout(() => {
+    //   loader.hide()
+    // }, 3000)
     fb.auth().onAuthStateChanged(async (user) => {
+      let loader = this.$loading.show({})
       if (user) {
         // User is signed in.
         const userData = {
@@ -43,6 +48,7 @@ export default {
       }else{
         this.$router.push('login')
       }
+      loader.hide()
     }, function(error) {
       console.log(error);
     });

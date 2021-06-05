@@ -119,7 +119,7 @@ export default {
       
       try {
         await this.$confirm('ยืนยันรายการสั่งซื้อและได้โอนเงินพร้อมแนบสลิปเรียบร้อย')
-  
+        let loader = this.$loading.show({})
         const orderData = {
           order: this.$store.state.order,
           totalPrice: this.totalPrice,
@@ -133,6 +133,7 @@ export default {
         await db.collection('Order').doc(this.$store.state.uid).set(orderData)
         await this.$alert('รออัพเดตจาก ป.ชัย นะจ้า','สั่งซื้อสำเร็จ!','success')
 
+        loader.hide()
         this.$router.push('/summary')
       } catch (error) {
         console.log({error})
@@ -141,12 +142,14 @@ export default {
 
     },
     async handleFile(e) {
+      let loader = this.$loading.show({})
       let filepath = `/slip/${this.$store.state.uid}/${e.target.files[0].name}`
       console.log('uploading ', filepath)
       await storage.ref().child(filepath).put(e.target.files[0])
       let url = await storage.ref().child(filepath).getDownloadURL()
       this.slip = url
       console.log('upload success', url)
+      loader.hide()
     }
   },
   created() {
