@@ -82,6 +82,7 @@
               <span v-else-if="order.status==='จัดส่งแล้ว'" class="badge bg-success">{{order.status}}</span>
               <span v-else class="badge bg-warning">รอยืนยัน</span>
       <hr>
+      <img class="img-fluid" :src="order.slip" alt="">
       <div class="d-flex">
         <button class="btn btn-warning ml-auto mr-2" @click.prevent="changeStatus(order.id,'รอยืนยัน')">รอยืนยัน</button>
         <button class="btn btn-info mr-2"  @click.prevent="changeStatus(order.id,'ยืนยันการสั่งซื้อ')">ยืนยันการสั่งซื้อ</button>
