@@ -21,7 +21,10 @@
           <p class="text-dark" v-if="product.note">
             ** {{product.note}}
           </p>
-          <p class="description text-gray">
+          <p class="description text-gray" v-if="product.note2">
+            *** {{product.note2}}
+          </p>
+          <p class="description text-gray" v-else>
             *** สั่งได้ไม่เกิน {{product.max}} รายการ
           </p>
           <div v-if="product.type!=='yeti'" class="mt-2 mb-2">
@@ -31,7 +34,7 @@
               <b-form-radio v-model="value.size" value="L">L</b-form-radio>
               <b-form-radio v-model="value.size" value="XL">XL</b-form-radio>
               <b-form-radio v-model="value.size" value="XXL">XXL</b-form-radio>
-              <b-form-radio v-model="value.size" value="อื่นๆ">อื่นๆ โปรดระบุ <input type="text" class="formcontrol" v-model="value.other"></b-form-radio>
+              <b-form-radio v-model="value.size" value="อื่นๆ">อื่นๆ โปรดระบุขนาดรอบอก <input type="text" class="formcontrol" v-model="value.other" placeholder="เช่น 50, 52, 54, 56 นิ้วเป็นต้น"></b-form-radio>
             </b-form-group>
           </div>
           <div class="text-dark">

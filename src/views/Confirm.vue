@@ -131,9 +131,9 @@ export default {
         }
         console.log('confirm', orderData)
         await db.collection('Order').doc(this.$store.state.uid).set(orderData)
-        await this.$alert('รออัพเดตจาก ป.ชัย นะจ้า','สั่งซื้อสำเร็จ!','success')
-
         loader.hide()
+        await this.$alert('กรุณาติดตามการอัพเดตเลขพัสดุผ่านทุกช่องทาง Official Entaneer Gear 42','สั่งซื้อสำเร็จ!','success')
+
         this.$router.push('/summary')
       } catch (error) {
         console.log({error})

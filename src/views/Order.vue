@@ -1,7 +1,7 @@
 <template>
   <div class="container mt-2 mb-2">
     <h3 class="text-white text-center mt-2">เลือกซื้อสิ่งของที่ระลึก</h3>
-    <p class="text-center">*** ค่าส่งเริ่มต้น 60 บาท สั่งจำนวน 4 ชิ้นขึ้นไปบวกค่าส่ง 15 บาทต่อรายการ ***</p>
+    <p class="text-center">*** ค่าส่ง 3 ชิ้นแรก 60บาท ,ชิ้นที่ 4 เป็นต้นไปบวกเพิ่มชิ้นละ 15 บาท ***</p>
     <product :product="packaged" v-model="packaged"></product>
     <product :product="shop" v-model="shop"></product>
     <product :product="polo" v-model="polo"></product>
@@ -20,8 +20,9 @@ export default {
   data() {
     return {
       packaged: {
-        title: 'Package เสื้อโปโล+แก้ว ราคา 839 บาท',
-        note: 'นับค่าส่งเป็น 2 ชิ้น',
+        title: 'รายการที่ 1  : Package เสื้อโปโล+แก้ว ราคา 839 บาท',
+        note: 'สินค้าใน package มีเสื้อ 1ชิ้น ,แก้ว 1 ชิ้น',
+        note2: 'จำกัดจำนวน 1 package /order เนื่องจากเหตุผลด้านการจัดส่ง (ขออภัยในความไม่สะดวก)',
         images: [
           '/images/comboset.jpg',
           '/images/polo.jpg',
@@ -36,7 +37,7 @@ export default {
         size: null
       },
       shop: {
-        title: 'เสื้อ SHOP ครบรอบ 10 ปี ราคา 499 บาท',
+        title: 'รายการที่ 2 : เสื้อ SHOP ครบรอบ 10 ปี ราคาชิ้นละ 499 บาท',
         images: [
           '/images/shop.jpg',
           '/images/shop_size.jpg',
@@ -47,7 +48,7 @@ export default {
         size: null
       },
       polo: {
-        title: 'เสื้อโปโล ราคา 499 บาท',
+        title: 'รายการที่ 3 : เสื้อโปโล ราคาชิ้นละ 499 บาท',
         images: [
           '/images/polo.jpg',
           '/images/polo_size.jpg',
@@ -58,7 +59,7 @@ export default {
         size: null
       },
       yeti: {
-        title: 'แก้วเก็บความร้อน-เย็น ราคา 390 บาท',
+        title: 'รายการที่ 4 : แก้วเก็บความร้อน-เย็น ราคา 390 บาท',
         images: [
           '/images/yeti_3.jpg',
           '/images/yeti_5.png',

@@ -45,7 +45,7 @@
           <div class="col-6"><b class="text-primary text-right">ราคารวมค่าส่ง</b></div>
           <div class="col-6"><h5 class="text-dark text-right">{{(totalPrice+deriveryCost).toLocaleString('th')}} บาท</h5></div>
         </div>
-        <h3 class="text-primary">สถานะ</h3> <span class="badge bg-warning">กำลังดำเนินการ</span>
+        <h3 class="text-primary">สถานะ</h3> <span class="badge bg-warning">ยืนยันการสั่งซื้อ</span>
       </div>
     </div>
   </div>
