@@ -18,6 +18,10 @@ import VueLoading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 Vue.use(VueLoading)
 
+import VueGoodTablePlugin from 'vue-good-table';
+import 'vue-good-table/dist/vue-good-table.css'
+Vue.use(VueGoodTablePlugin);
+
 Vue.config.productionTip = false
 
 new Vue({

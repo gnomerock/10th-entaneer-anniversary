@@ -127,7 +127,8 @@ export default {
           name: this.displayName,
           phoneNumber: this.phoneNumber,
           address: this.address,
-          studentId: this.studentId
+          studentId: this.studentId,
+          created_at: new Date()
         }
         console.log('confirm', orderData)
         await db.collection('Order').doc(this.$store.state.uid).set(orderData)
