@@ -128,6 +128,7 @@ export default {
           phoneNumber: this.phoneNumber,
           address: this.address,
           studentId: this.studentId,
+          status: 'รอยืนยัน',
           created_at: new Date()
         }
         console.log('confirm', orderData)

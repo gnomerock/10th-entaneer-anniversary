@@ -22,6 +22,10 @@ import VueGoodTablePlugin from 'vue-good-table';
 import 'vue-good-table/dist/vue-good-table.css'
 Vue.use(VueGoodTablePlugin);
 
+import { firestorePlugin } from 'vuefire'
+
+Vue.use(firestorePlugin)
+
 Vue.config.productionTip = false
 
 new Vue({

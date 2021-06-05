@@ -7,18 +7,33 @@
       <div class="card-body">
         <vue-good-table
           :columns="columns"
-          :rows="orders"
+          :rows="computedOrder"
           :line-numbers="true"
           :search-options="{enabled: true}"
           :pagination-options="{enabled: true}"
           @on-row-click="onRowClick"
-        />
+        >
+          <template slot="table-row" slot-scope="props">
+            <span v-if="props.column.field == 'status'">
+              <span v-if="props.row.status==='ยืนยันการสั่งซื้อ'" class="badge bg-info">{{props.row.status}}</span>
+              <span v-else-if="props.row.status==='จัดส่งแล้ว'" class="badge bg-success">{{props.row.status}}</span>
+              <span v-else class="badge bg-warning">รอยืนยัน</span>
+            </span>
+            <span v-else>
+              {{props.formattedRow[props.column.field]}}
+            </span>
+          </template>
+        </vue-good-table>
       </div>
     </div>
     <b-modal id="view-order" title="Order Status" hide-footer v-if="order" size="lg">
       <h3 class="text-center text-white">
       รายละเอียดคำสั่งซื้อ
     </h3>
+      <div class="row">
+        <div class="col-3 text-primary">UID</div>
+        <div class="col-9">{{order.id}}</div>
+      </div>
       <div class="row">
         <div class="col-3 text-primary">ชื่อผู้สั่ง</div>
         <div class="col-9">{{order.name}}</div>
@@ -37,7 +52,7 @@
       </div>
       <div class="row">
         <div class="col-3 text-primary">เวลาที่สั่งซื้อ</div>
-        <div class="col-9">{{order.created_at}}</div>
+        <div class="col-9" v-if="order.created_at">{{order.created_at}}</div>
       </div>
       <hr>
       <div class="row">
@@ -62,12 +77,15 @@
         <div class="col-6"><b class="text-primary text-right">ราคารวมค่าส่ง</b></div>
         <div class="col-6"><h5 class="text-dark text-right">{{(totalPrice+deriveryCost).toLocaleString('th')}} บาท</h5></div>
       </div>
-      <h3 class="text-primary">สถานะ</h3> <span class="badge bg-warning">ยืนยันการสั่งซื้อ</span>
+      <h3 class="text-primary">สถานะ</h3> 
+              <span v-if="order.status==='ยืนยันการสั่งซื้อ'" class="badge bg-info">{{order.status}}</span>
+              <span v-else-if="order.status==='จัดส่งแล้ว'" class="badge bg-success">{{order.status}}</span>
+              <span v-else class="badge bg-warning">รอยืนยัน</span>
       <hr>
       <div class="d-flex">
-        <button class="btn btn-warning ml-auto mr-2">รอยืนยัน</button>
-        <button class="btn btn-info mr-2">ยืนยันการสั่งซื้อ</button>
-        <button class="btn btn-success mr-2">ส่งแล้ว</button>
+        <button class="btn btn-warning ml-auto mr-2" @click.prevent="changeStatus(order.id,'รอยืนยัน')">รอยืนยัน</button>
+        <button class="btn btn-info mr-2"  @click.prevent="changeStatus(order.id,'ยืนยันการสั่งซื้อ')">ยืนยันการสั่งซื้อ</button>
+        <button class="btn btn-success mr-2"  @click.prevent="changeStatus(order.id,'จัดส่งแล้ว')">จัดส่งแล้ว</button>
       </div>
     </b-modal>
   </div>
@@ -93,29 +111,35 @@ export default {
       order: null
     }
   },
+  firestore() {
+    return {
+      orders: db.collection('Order')
+    }
+  },
   methods: {
     onRowClick(params) {
       this.order = {
         ...params.row
       }
       this.$bvModal.show('view-order')
-    }
-  },
-  async created() {
-    let loader = this.$loading.show({})
-    let data = await db.collection('Order').get()
-    for(let order of data.docs) {
-      let data = {...order.data()}
-      if(data.created_at) {
-        data.created_at = data.created_at.toDate().toLocaleString('th')
+    },
+    async changeStatus(id, status) {
+
+      try {
+        await this.$confirm(`แก้ไขสถานะเป็น ${status}`)
+        let loader = this.$loading.show({})
+
+        await db.collection('Order').doc(id).update({
+          status: status
+        })
+
+        loader.hide()
+
+        await  this.$alert('อัพเดตสถานะสำเร็จ','','success')
+      } catch (error) {
+        
       }
-      if(!data.status) {
-        data.status = 'pending'
-      }
-      console.log(data)
-      this.orders.push(data)
-    }
-    loader.hide()
+    },
   },
   computed: {
     totalPrice() {
@@ -148,6 +172,14 @@ export default {
     },
     uid() {
       return this.$store.getters.uid
+    },
+    computedOrder() {
+      return this.orders.map( order => {
+        let item = {...order}
+        item.id = order.id
+        if(order.created_at) item.created_at = order.created_at.toDate().toLocaleString('th')
+        return item
+      })
     }
   },
 }

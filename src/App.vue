@@ -11,10 +11,6 @@ import {
 } from '@/firebase'
 export default {
   async created() {
-    // let loader = this.$loading.show({})
-    // setTimeout(() => {
-    //   loader.hide()
-    // }, 3000)
     fb.auth().onAuthStateChanged(async (user) => {
       let loader = this.$loading.show({})
       if (user) {
