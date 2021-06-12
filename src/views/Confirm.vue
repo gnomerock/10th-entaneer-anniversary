@@ -116,6 +116,13 @@ export default {
   },
   methods: {
     async submitOrder() {
+      let firstLoader = this.$loading.show({})
+      let result = await db.collection('Order').doc(this.$store.state.uid).get()
+      firstLoader.hide()
+      if(result.exists) {
+        await this.$alert('คุณได้ทำการสั่งซื้อไปแล้ว')
+        this.$router.push('/summary')
+      }
       
       try {
         await this.$confirm('ยืนยันรายการสั่งซื้อและได้โอนเงินพร้อมแนบสลิปเรียบร้อย')
