@@ -1,5 +1,5 @@
 <template>
-  <div class="container" style="min-height: 100vh;">
+  <div class="container-fluid" style="min-height: 100vh;">
     <h3 class="text-white">
       Summary
     </h3>
@@ -106,8 +106,91 @@ export default {
         { label: 'ชื่อ', field: 'name' },
         { label: 'รหัสนักศึกษา', field: 'studentId' },
         { label: 'เบอร์โทรศัพท์', field: 'phoneNumber' },
-        { label: 'วันที่สั่งซื้อ', field: 'created_at' },
-        { label: 'สถานะ', field: 'status' },
+        { 
+          label: 'package size',
+          field: (rowObj) => {
+            if(rowObj.order.package.quantity > 0)
+              if(rowObj.order.package.size==='อื่นๆ')
+                return rowObj.order.package.other
+              else
+                return rowObj.order.package.size
+          }
+        },
+        { 
+          label: 'package จำนวน',
+          field: (rowObj) => {
+            if(rowObj.order.package.quantity > 0)
+              return rowObj.order.package.quantity
+          }
+        },
+        { 
+          label: 'shop size',
+          field: (rowObj) => {
+            if(rowObj.order.shop.quantity > 0)
+              if(rowObj.order.shop.size==='อื่นๆ')
+                return rowObj.order.shop.other
+              else
+                return rowObj.order.shop.size
+          }
+        },
+        { 
+          label: 'shop จำนวน',
+          field: (rowObj) => {
+            if(rowObj.order.shop.quantity > 0)
+              return rowObj.order.shop.quantity
+          }
+        },
+        { 
+          label: 'Polo size',
+          field: (rowObj) => {
+            if(rowObj.order.polo.quantity > 0)
+              if(rowObj.order.polo.size==='อื่นๆ')
+                return rowObj.order.polo.other
+              else
+                return rowObj.order.polo.size
+          }
+        },
+        { 
+          label: 'Polo จำนวน',
+          field: (rowObj) => {
+            if(rowObj.order.polo.quantity > 0)
+              return rowObj.order.polo.quantity
+          }
+        },
+        { 
+          label: 'แก้ว จำนวน',
+          field: (rowObj) => {
+            if(rowObj.order.yeti.quantity > 0)
+              return rowObj.order.yeti.quantity
+          }
+        },
+        {
+          label: 'address',
+          field: 'address'
+        },
+        {
+          label: 'ราคารวมส่ง',
+          field: (rowObj) => {
+            let order = rowObj.order
+            let totalPrice = ( order.package.quantity * order.package.price ) +
+                    ( order.shop.quantity * order.shop.price ) + 
+                    ( order.polo.quantity * order.polo.price ) + 
+                    ( order.yeti.quantity * order.yeti.price )
+            let volume = 0
+            let deriveryCost
+            if(order.package.quantity>0) volume += 2
+            if(order.shop.quantity>0) volume += order.shop.quantity
+            if(order.yeti.quantity>0) volume += order.yeti.quantity
+            if(order.polo.quantity>0) volume += order.polo.quantity
+
+            if(volume<4) deriveryCost = 60
+            else deriveryCost = 60+(15 * (volume-3))
+
+            return (totalPrice + deriveryCost).toLocaleString('th')
+          }
+        }
+        // { label: 'วันที่สั่งซื้อ', field: 'created_at' },
+        // { label: 'สถานะ', field: 'status' },
       ],
       order: null
     }
